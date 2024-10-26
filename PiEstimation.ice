@@ -1,6 +1,6 @@
 module PiEstimation {
     interface Worker {
-        ["ami"] int calculatePoints(int totalPoints);
+        int calculatePoints(int totalPoints);
     }
 
     interface Master {

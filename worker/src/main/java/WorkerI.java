@@ -3,7 +3,6 @@ import com.zeroc.Ice.Current;
 import java.util.Random;
 
 public class WorkerI implements Worker {
-
     private Random random = new Random();
 
     @Override
