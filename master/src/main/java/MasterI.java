@@ -1,15 +1,15 @@
 import com.zeroc.Ice.Current;
-import PiEstimation.Master;  // La interfaz generada por el archivo .ice
-import PiEstimation.WorkerPrx;  // El proxy de los trabajadores
+import PiEstimation.Master;
+import PiEstimation.WorkerPrx;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
 
 public class MasterI implements Master {
 
-    private final List<WorkerPrx> workers;
+    private List<WorkerPrx> workers;  // Lista de proxies de trabajadores
 
+    // Constructor
     public MasterI(List<WorkerPrx> workers) {
         this.workers = workers;
     }
@@ -17,24 +17,14 @@ public class MasterI implements Master {
     @Override
     public int requestPiEstimation(int totalPoints, int workerCount, Current current) {
         int pointsPerWorker = totalPoints / workerCount;
-        int pointsInsideCircle = 0;
+        int totalPointsInsideCircle = 0;
 
-        List<Future<Integer>> futures = new ArrayList<>();
-
-        // Asignar tareas a los trabajadores
+        // Llamadas sincrónicas a cada trabajador para calcular puntos
         for (WorkerPrx worker : workers) {
-            futures.add(worker.begin_calculatePoints(pointsPerWorker));  // Llamada asíncrona
+            totalPointsInsideCircle += worker.calculatePoints(pointsPerWorker);
         }
 
-        // Recolectar resultados
-        for (Future<Integer> future : futures) {
-            try {
-                pointsInsideCircle += future.get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return pointsInsideCircle;
+        // Retorna la estimación de Pi
+        return (int) ((4.0 * totalPointsInsideCircle) / totalPoints);
     }
 }
