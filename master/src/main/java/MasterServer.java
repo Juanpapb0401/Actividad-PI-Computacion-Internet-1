@@ -13,7 +13,7 @@ public class MasterServer {
         try (Communicator communicator = Util.initialize(args)) {
             ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("MasterAdapter", "default -h 0.0.0.0 -p 10000");
 
-            com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("Worker:default -h 192.168.1.19 -p 10001");
+            com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("Worker:default -h 192.168.1.5 -p 10001");
             WorkerPrx worker = WorkerPrx.checkedCast(base);
             if (worker != null) {
                 workers.add(worker);
