@@ -38,12 +38,15 @@ Compila el Proyecto con Gradle: Ejecuta el siguiente comando para compilar el pr
 Ejecución del Proyecto
 
 Inicia los Trabajadores: Cada trabajador se ejecuta así:
+
 java -cp worker/build/libs/worker.jar WorkerServer
 
 Inicia el Maestro: Usa el siguiente comando:
+
 java -cp master/build/libs/master.jar MasterServer
 
 Ejecuta el Cliente: Una vez que el Maestro y los Trabajadores estén en ejecución, ejecuta el Cliente para enviar una solicitud de cálculo de π.
+
 java -cp client/build/libs/client.jar Client
 
 El Cliente pedirá al Maestro que coordine una estimación de π con el número de puntos y trabajadores especificados en su configuración.
